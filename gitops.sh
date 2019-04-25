@@ -14,10 +14,6 @@ REPO=$1
 BASENAME=$(basename $REPO)
 REPONAME=${BASENAME%.*}
 
-echo $REPONAME
-
-export KUBECONFIG=/tmp/kubeconfig
-
 init()
 {
 	if [ ! -d "$REPONAME" ]; then
