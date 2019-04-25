@@ -1,4 +1,8 @@
-!/bin/bash
+#!/bin/bash
+LOG_FILE="/tmp/gitops.txt"
+exec 1>>${LOG_FILE}
+exec 2>>${LOG_FILE}
+
 echo "---------------------------------------------------------------------------"
 echo "------------------------------    GitOps   --------------------------------"
 echo "---------------------------------------------------------------------------"
@@ -20,7 +24,11 @@ init()
 		git clone $REPO
 	fi
 	cd $REPONAME
-	git fetch origin
+	kubectl apply -f .
+}
+
+monitor()
+{
 	reslog=$(git log HEAD..origin/master --oneline)
 	echo $reslog
 	if [[ "${reslog}" != "" ]] ; then
@@ -30,3 +38,7 @@ init()
 }
 
 init
+while true;
+do monitor
+sleep 60
+done
