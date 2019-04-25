@@ -24,11 +24,12 @@ init()
 		git clone $REPO
 	fi
 	cd $REPONAME
-	pwd
+	git fetch origin
 	reslog=$(git log HEAD..origin/master --oneline)
+	echo $reslog
 	if [[ "${reslog}" != "" ]] ; then
- 	 git merge origin/master # completing the pull
-	kubectl apply -f .
+		git merge origin/master # completing the pull
+		kubectl apply -f .
 	fi
 }
 
