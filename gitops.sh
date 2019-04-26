@@ -1,7 +1,4 @@
 #!/bin/bash
-LOG_FILE="/tmp/gitops.txt"
-exec 1>>${LOG_FILE}
-exec 2>>${LOG_FILE}
 
 echo "---------------------------------------------------------------------------"
 echo "------------------------------    GitOps   --------------------------------"
@@ -18,6 +15,10 @@ REPO=$1
 BASENAME=$(basename $REPO)
 REPONAME=${BASENAME%.*}
 
+source gitid
+git config --global user.name $USERNAME
+git config --global user.email $EMAIL
+
 init()
 {
 	if [ ! -d "$REPONAME" ]; then
@@ -29,6 +30,8 @@ init()
 
 monitor()
 {
+	echo "Monitoring repo..."
+	git fetch origin
 	reslog=$(git log HEAD..origin/master --oneline)
 	echo $reslog
 	if [[ "${reslog}" != "" ]] ; then
