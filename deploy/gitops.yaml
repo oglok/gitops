@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gitops
+  namespace: default
+spec:
+  containers:
+  - image: quay.io/oglok/gitops
+    command: ["/bin/sh"]
+    args: ["-c", "./gitops.sh https://github.com/oglok/samplepod"]
+    imagePullPolicy: Always
+    name: gitops
+  restartPolicy: Always
