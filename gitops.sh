@@ -15,6 +15,8 @@ REPO=$1
 BASENAME=$(basename $REPO)
 REPONAME=${BASENAME%.*}
 
+export KUBECONFIG=/tmp/gitops/kubeconfig
+
 source gitid
 git config --global user.name $USERNAME
 git config --global user.email $EMAIL

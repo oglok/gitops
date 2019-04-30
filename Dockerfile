@@ -5,8 +5,6 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 RUN chmod +x ./kubectl
 RUN cp kubectl /usr/local/bin
 
-RUN mkdir ~/.kube/
-ADD kubeconfig ~/.kube/
 RUN INSTALL_PKGS=" \
       git \
       " && \
